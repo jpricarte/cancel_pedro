@@ -43,11 +43,29 @@ def see_cancel(update, context):
 
         context.bot.send_message(chat_id=update.effective_chat.id, text=message)
 
+def last_cancel(update, context):
+
+    #getting list from server
+    response = requests.get(URL_SERVER_CANCEL)
+    lista = response.json()
+    #taking last ellement
+    last_cancel = lista[-1]
+    id_cancel = last_cancel['id']
+    user = last_cancel['user']
+    app = last_cancel['app']
+    time = last_cancel['time']
+
+    message = "Pedro's last cancellation" + "\nuser: " + user + "\nwhere: " + app + "\nwhen: " + time
+
+    context.bot.send_message(chat_id=update.effective_chat.id, text=message)
+
 #new_cancel command
 def new_cancel(update, context):
 
     #getting username and data
     user = update.message.from_user.username
+    if user == None:
+        user = 'Algum arrombado sem user'
 
     currentDT = datetime.datetime.now()
     day = currentDT.day
@@ -78,6 +96,7 @@ def felt_guilty(update, context):
 #creating handlers and commands
 start_handler = CommandHandler('start', start)
 cancelled_handler = CommandHandler('cancel_list', see_cancel)
+last_cancel_handler = CommandHandler('last_cancel', last_cancel)
 new_cancel_handler = CommandHandler('new_cancel', new_cancel)
 felt_guilty_handler = CommandHandler('felt_guilty', felt_guilty)
 
@@ -85,6 +104,7 @@ dispatcher.add_handler(start_handler)
 dispatcher.add_handler(cancelled_handler)
 dispatcher.add_handler(new_cancel_handler)
 dispatcher.add_handler(felt_guilty_handler)
+dispatcher.add_handler(last_cancel_handler)
 
 updater.start_polling()
 

@@ -30,8 +30,8 @@ module.exports = {
     //Return all cancels
     async index(request, response)
     {
-        const user = await connection('cancelamentos').select('*');
+        const cancel = await connection('cancelamentos').select('*');
     
-        return response.json(user);
-    },
+        return response.json(cancel);
+    }
 }
