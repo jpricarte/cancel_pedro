@@ -3,8 +3,10 @@ from telegram.ext import CommandHandler
 import requests
 import json
 import datetime
+import random
 
 URL_SERVER_CANCEL = 'http://localhost:3333/cancel'
+random.seed(datetime.time)
 
 #Get token
 token = None
@@ -63,14 +65,26 @@ def new_cancel(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text='@PedroEsnaola says "a"')
 
 
+def felt_guilty(update, context):
+    random_line = None
+    with open('frases.txt', 'r') as archive:
+        lines = archive.read().splitlines()
+        random_line = random.choice(lines)
+        archive.close()
+    
+    context.bot.send_message(chat_id=update.effective_chat.id, text=random_line)
+
+
 #creating handlers and commands
 start_handler = CommandHandler('start', start)
 cancelled_handler = CommandHandler('cancel_list', see_cancel)
 new_cancel_handler = CommandHandler('new_cancel', new_cancel)
+felt_guilty_handler = CommandHandler('felt_guilty', felt_guilty)
 
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(cancelled_handler)
 dispatcher.add_handler(new_cancel_handler)
+dispatcher.add_handler(felt_guilty_handler)
 
 updater.start_polling()
 

@@ -2,3 +2,5 @@
 /telegram_bot/token.txt
 # ignoring database
 /src/database/db.sqlite
+# ignoring phrases
+/telegram_bot/frases.txt
