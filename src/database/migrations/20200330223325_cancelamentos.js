@@ -4,7 +4,7 @@ exports.up = function(knex) {
         table.increments('id');
         table.string('user').notNullable();
         table.string('app');
-        table.string('time');
+        table.integer('time');
     });
 };
 
