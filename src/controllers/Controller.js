@@ -20,10 +20,10 @@ module.exports = {
         //returning what was added
         return response.json({
             "status": "sucess",
-            "id": id,
-            "user": user,
-            "app": app,
-            "time": time
+            id,
+            user,
+            app,
+            time
         });
     },
 

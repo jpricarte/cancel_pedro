@@ -102,9 +102,9 @@ felt_guilty_handler = CommandHandler('felt_guilty', felt_guilty)
 
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(cancelled_handler)
+dispatcher.add_handler(last_cancel_handler)
 dispatcher.add_handler(new_cancel_handler)
 dispatcher.add_handler(felt_guilty_handler)
-dispatcher.add_handler(last_cancel_handler)
 
 updater.start_polling()
 
